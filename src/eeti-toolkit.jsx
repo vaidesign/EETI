@@ -127,27 +127,84 @@ const CARDS = [
   { id:"windows",cat:"platform",name:"Windows",sub:"Platform",img:"enable_windows.png",desc:"Windows OS — for desktop/kiosk applications with full computing.",pros:["Full software ecosystem","Peripheral support","Development tools"],cons:["Heavy resources","Boot time","Licensing"],considerations:["Good for kiosks and installations","Consider Windows IoT for embedded","Overkill for simple embedded tasks"] },
 ];
 
+// ── ASCII CARD GRAPHICS ────────────────────────────────────────
+const CARD_GRAPHICS = {
+  // Per-card overrides
+  standing:     "    ◉\n    │\n   ─┼─\n    │\n   ─┴─",
+  sitting:      "   ◉\n   │\n  ─┤\n   │──\n   ┘",
+  wearable:     " ─╭────╮─\n  │ ◉  │\n ─╰────╯─",
+  vehicle:      "  ┌───┐\n ─┤   ├─\n  ○   ○",
+  phone:        "  ┌──┐\n  │  │\n  │○ │\n  └──┘",
+  outdoor:      "   /\\\n  /  \\\n /────\\\n  ────",
+  indoor:       "  ┌──┐\n  ┤  ├\n  ┤  ├\n  └──┘",
+  social:       " ◉ ◉ ◉\n │ │ │\n─┴─┴─┴─",
+  tap:          "    ▼\n   ─┼─\n    │\n   ─┴─",
+  drag:         "  ◁───▷\n  │   │\n    ▽",
+  shake:        " ≋  ≋  ≋\n≋  ≋  ≋ \n ≋  ≋  ≋",
+  hover:        "  ·  ·  ·\n   · ◈ ·\n  ·  ·  ·",
+  tilt:         " ╭────╮\n╱      ╲\n        ",
+  button:       "   ╭──╮\n   │██│\n   ╰──╯\n   └──┘",
+  jogwheel:     "  ╭──╮\n ─┤  ├─\n  ╰──╯\n    ↻",
+  slider:       " ────┬──\n     │\n  ───────",
+  joystick:     "    │\n    ◉\n  ──┘└──\n  ──────",
+  keyboard:     " ┌┐┌┐┌┐\n └┘└┘└┘\n ┌─────┐\n └─────┘",
+  wifi:         "  ((()))\n ((   ))\n((     ))\n    ◉",
+  bluetooth:    "   ─┐\n   │╲\n   │╱\n   │╲\n   │╱\n   ─┘",
+  battery:      " ┌──────┐\n─┤██████│\n─┤████░░│\n └──────┘",
+  solar:        " ╔═╗╔═╗\n ╚═╝╚═╝\n     │\n    ─┴─",
+  mcu:          "  ┌┬┬┬┐\n  ├┤ ├┤\n  ├┼◈┼┤\n  ├┤ ├┤\n  └┴┴┴┘",
+  android:      "  ╭───╮\n  │◉ ◉│\n  │ ▽ │\n  └───┘",
+  windows:      "  ┌─┬─┐\n  │▓│▓│\n  ├─┼─┤\n  │▓│▓│\n  └─┴─┘",
+  nfc:          "     ─\n    ─ ─\n   ─   ─\n     ◈",
+  gps:          "    /\\\n   /  \\\n  / ◈  \\\n  ──────",
+  light:        "   ·*·\n  * ◉ *\n   ·*·\n    │\n    ┴",
+  sound:        "    ))\n  ─▐█▌─\n    ))\n   ─┴─",
+  vibration:    "  ≋ ≋ ≋\n ≋ ≋ ≋ ≋\n  ≋ ≋ ≋\n ≋ ≋ ≋ ≋",
+  lcd:          " ╔═════╗\n ║ ████║\n ╚═════╝\n   ─┴─",
+  eink:         "  ┌─────┐\n  │  ──  │\n  │ ─── │\n  └─────┘",
+  healthsensor: "    ♡\n   ─◉─\n    │\n  ──┴──",
+  soundsensor:  "   ))))\n   ▐██▌\n   ────",
+  infrared:     "  ──▷\n  ──▷\n  ──▷\n    ◈",
+  cloud:        " ╭──╮╮\n ╰───╮│\n     ╰╯",
+  usb:          " ─┤USB├─\n  └────┘\n     │\n     ┴",
+  activecooling:"  ↑↑↑\n  ─────\n  ╔═══╗\n  ╚═══╝",
+  passivecooling:"▐████▌\n ──────\n▐████▌\n ──────",
+  // Category fallbacks
+  scenario:     "   ╭──╮\n   │◉◉│\n   ╰─┬╯\n     │\n   ──┴──",
+  gesture:      "     ▽\n   ╱─╲\n  │   │\n  │   │\n   ───",
+  control:      " ┌─┐ ┌─┐\n │●│ │●│\n └─┘ └─┘\n  ━━━━━",
+  sensor:       "   )◈(\n  ))◈((\n )))◈(((\n   ─┴─\n   ───",
+  camera:       "  ╭───╮\n  │ ◎ │\n  ╰───╯\n    ┴",
+  display:      "  ╔═══╗\n  ║░▓░║\n  ║▓░▓║\n  ╚═══╝\n   ─┴─",
+  feedback:     "  ≋ ≋ ≋\n ≋ ≋ ≋ ≋\n  ≋ ≋ ≋\n ≋ ≋ ≋ ≋",
+  connect:      "   ◉─◉\n  ╱│ │╲\n ◉  │  ◉\n  ╲│ │╱\n   ◉─◉",
+  port:         "  ┌────┐\n  │▐▌▐▌│\n  └────┘",
+  charging:     "  ┌────┐\n┌─┤████│\n└─┤██░░│\n  └────┘",
+  cooling:      "  ↑  ↑  ↑\n  │  │  │\n  ═══════\n  ╱╱╱╱╱╱",
+  platform:     "  ┌─┬─┐\n  ├─┼─┤\n  │ ◈ │\n  ├─┼─┤\n  └─┴─┘",
+};
+
 // ── CATEGORY DEFINITIONS ──────────────────────────────────────
 const CATEGORIES = {
-  scenario: { label:"Scenario", color:"#E8A0BF", group:"context" },
-  gesture: { label:"Gesture", color:"#D4A98C", group:"input" },
-  control: { label:"Control", color:"#C9967E", group:"input" },
-  sensor: { label:"Sensor", color:"#D4A98C", group:"input" },
-  camera: { label:"Camera", color:"#C9967E", group:"input" },
-  display: { label:"Display", color:"#8BAFC4", group:"output" },
-  feedback: { label:"Feedback", color:"#9CC5D4", group:"output" },
-  connect: { label:"Connect", color:"#8CC5A0", group:"enable" },
-  port: { label:"Port", color:"#7DB892", group:"enable" },
-  charging: { label:"Charging", color:"#8CC5A0", group:"enable" },
-  cooling: { label:"Cooling", color:"#7DB892", group:"enable" },
-  platform: { label:"Platform", color:"#8CC5A0", group:"enable" },
+  scenario: { label:"Scenario", color:"#F4ADCB", group:"context" },
+  gesture:  { label:"Gesture",  color:"#FFBE7A", group:"input" },
+  control:  { label:"Control",  color:"#FF8C69", group:"input" },
+  sensor:   { label:"Sensor",   color:"#C4ADFF", group:"input" },
+  camera:   { label:"Camera",   color:"#7BAAFF", group:"input" },
+  display:  { label:"Display",  color:"#5BC8FF", group:"output" },
+  feedback: { label:"Feedback", color:"#5BEFEF", group:"output" },
+  connect:  { label:"Connect",  color:"#5BE8A4", group:"enable" },
+  port:     { label:"Port",     color:"#3DCC80", group:"enable" },
+  charging: { label:"Charging", color:"#FFD040", group:"enable" },
+  cooling:  { label:"Cooling",  color:"#80B8D4", group:"enable" },
+  platform: { label:"Platform", color:"#C8FF00", group:"enable" },
 };
 
 const GROUPS = {
-  context: { label:"SCENARIO", color:"#E8A0BF" },
-  input: { label:"INPUT", color:"#D4A98C" },
-  output: { label:"OUTPUT", color:"#8BAFC4" },
-  enable: { label:"ENABLE", color:"#8CC5A0" },
+  context: { label:"SCENARIO", color:"#F4ADCB" },
+  input:   { label:"INPUT",    color:"#FFBE7A" },
+  output:  { label:"OUTPUT",   color:"#5BC8FF" },
+  enable:  { label:"ENABLE",   color:"#5BE8A4" },
 };
 
 // ── DEPENDENCY RULES ──────────────────────────────────────────
@@ -191,11 +248,19 @@ export default function EETIToolkit() {
   const [selected, setSelected] = useState(new Set());
   const [activeCat, setActiveCat] = useState("scenario");
   const [search, setSearch] = useState("");
-  const [expandedCard, setExpandedCard] = useState(null);
+  const [flippedCards, setFlippedCards] = useState(new Set());
   const [projectName, setProjectName] = useState("Untitled Project");
 
   const toggle = useCallback((id) => {
     setSelected(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  }, []);
+
+  const flipCard = useCallback((id) => {
+    setFlippedCards(prev => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
       return next;
@@ -268,7 +333,7 @@ export default function EETIToolkit() {
     navBtn: (active) => ({ padding:"8px 16px", borderRadius:6, border:"none", background:active?lime:"transparent", color:active?bg:textDim, fontSize:13, fontWeight:600, cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.03em", transition:"all 0.15s" }),
     sidebar: { width:220, borderRight:`1px solid ${border}`, padding:"16px 0", overflowY:"auto", flexShrink:0 },
     catBtn: (active) => ({ width:"100%", padding:"10px 20px", border:"none", background:active?surfaceLight:"transparent", color:active?text:textDim, fontSize:13, cursor:"pointer", textAlign:"left", display:"flex", justifyContent:"space-between", alignItems:"center", fontFamily:"'IBM Plex Sans',sans-serif", transition:"all 0.1s" }),
-    grid: { display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))", gap:12, padding:20 },
+    grid: { display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))", gap:14, padding:20, alignItems:"start" },
     card: (sel) => ({ background:sel?surfaceLight:surface, border:`1px solid ${sel?lime:border}`, borderRadius:10, padding:16, cursor:"pointer", transition:"all 0.15s", position:"relative" }),
     tag: (color) => ({ display:"inline-block", padding:"2px 8px", borderRadius:4, fontSize:11, fontWeight:600, background:color+"22", color, fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.05em" }),
     badge: { position:"absolute", top:10, right:10, width:10, height:10, borderRadius:"50%", background:lime },
@@ -370,36 +435,129 @@ export default function EETIToolkit() {
             <div style={s.grid}>
               {filteredCards.map((card,i) => {
                 const sel = selected.has(card.id);
+                const flipped = flippedCards.has(card.id);
+                const catColor = CATEGORIES[card.cat]?.color || "#888";
+                const graphic = CARD_GRAPHICS[card.id] || CARD_GRAPHICS[card.cat] || "   ·\n  ···\n   ·";
+                const ink = "#0D0D0D";
+                const inkMid = "rgba(0,0,0,0.55)";
+                const inkFaint = "rgba(0,0,0,0.28)";
+                const inkBg = "rgba(0,0,0,0.07)";
+
                 return (
-                  <div key={card.id} style={{ ...s.card(sel), animation:`fadeIn 0.2s ease ${i*30}ms both` }} onClick={()=>toggle(card.id)}>
-                    {sel && <div style={s.badge}/>}
-                    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:8 }}>
-                      <span style={s.tag(CATEGORIES[card.cat]?.color)}>{card.sub}</span>
-                    </div>
-                    <div style={{ fontSize:16, fontWeight:600, marginBottom:6 }}>{card.name}</div>
-                    <div style={{ fontSize:12, color:textDim, lineHeight:1.5, marginBottom:10 }}>{card.desc}</div>
-                    <button
-                      style={{ fontSize:11, color:lime, background:"none", border:"none", cursor:"pointer", padding:0, ...s.mono }}
-                      onClick={(e) => { e.stopPropagation(); setExpandedCard(expandedCard===card.id?null:card.id); }}
-                    >
-                      {expandedCard===card.id ? "▾ Less" : "▸ Design considerations"}
-                    </button>
-                    {expandedCard===card.id && (
-                      <div style={{ marginTop:10, paddingTop:10, borderTop:`1px solid ${border}` }}>
-                        <div style={{ marginBottom:8 }}>
-                          <span style={{ ...s.mono, fontSize:10, color:"#6C6", letterSpacing:"0.1em" }}>PROS</span>
-                          {card.pros.map((p,j)=><div key={j} style={{ fontSize:12, color:textDim, paddingLeft:10 }}>+ {p}</div>)}
+                  <div key={card.id} style={{ height:340, perspective:"1000px", animation:`fadeIn 0.2s ease ${i*30}ms both` }}>
+                    <div style={{
+                      position:"relative", height:"100%",
+                      transformStyle:"preserve-3d",
+                      transition:"transform 0.48s cubic-bezier(0.4,0,0.2,1)",
+                      transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)"
+                    }}>
+
+                      {/* ── FRONT FACE ── */}
+                      <div
+                        onClick={() => flipCard(card.id)}
+                        style={{
+                          position:"absolute", top:0, left:0, right:0, bottom:0,
+                          backfaceVisibility:"hidden", WebkitBackfaceVisibility:"hidden",
+                          background:catColor, borderRadius:12,
+                          padding:"14px 15px", overflow:"hidden",
+                          cursor:"pointer", display:"flex", flexDirection:"column",
+                          boxShadow: sel ? `0 0 0 2.5px ${ink}` : "0 1px 4px rgba(0,0,0,0.15)",
+                          transition:"box-shadow 0.15s"
+                        }}
+                      >
+                        {/* Sub-label + select button */}
+                        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
+                          <span style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:inkFaint, textTransform:"uppercase" }}>{card.sub}</span>
+                          <button
+                            onClick={e => { e.stopPropagation(); toggle(card.id); }}
+                            style={{
+                              width:22, height:22, borderRadius:"50%", flexShrink:0,
+                              border:`2px solid ${sel ? ink : "rgba(0,0,0,0.22)"}`,
+                              background: sel ? ink : "transparent",
+                              color: sel ? catColor : "rgba(0,0,0,0.4)",
+                              cursor:"pointer", fontSize:12, fontWeight:700,
+                              display:"flex", alignItems:"center", justifyContent:"center",
+                              lineHeight:1, padding:0, transition:"all 0.15s"
+                            }}
+                          >{sel ? "✓" : "+"}</button>
                         </div>
-                        <div style={{ marginBottom:8 }}>
-                          <span style={{ ...s.mono, fontSize:10, color:"#C66", letterSpacing:"0.1em" }}>CONS</span>
-                          {card.cons.map((p,j)=><div key={j} style={{ fontSize:12, color:textDim, paddingLeft:10 }}>– {p}</div>)}
-                        </div>
-                        <div>
-                          <span style={{ ...s.mono, fontSize:10, color:lime, letterSpacing:"0.1em" }}>CONSIDER</span>
-                          {card.considerations.map((p,j)=><div key={j} style={{ fontSize:12, color:textDim, paddingLeft:10 }}>→ {p}</div>)}
+
+                        {/* ASCII graphic */}
+                        <pre style={{
+                          fontFamily:"'IBM Plex Mono',monospace", fontSize:11, lineHeight:1.38,
+                          margin:"0 0 11px", padding:"10px 12px",
+                          background:inkBg, borderRadius:7,
+                          color:inkMid, overflow:"hidden", whiteSpace:"pre",
+                          flexShrink:0
+                        }}>{graphic}</pre>
+
+                        {/* Name */}
+                        <div style={{ fontSize:17, fontWeight:700, color:ink, letterSpacing:"-0.01em", marginBottom:5, lineHeight:1.2 }}>{card.name}</div>
+
+                        {/* Description */}
+                        <div style={{ fontSize:12, lineHeight:1.55, color:"rgba(0,0,0,0.6)", flex:1, overflow:"hidden" }}>{card.desc}</div>
+
+                        {/* Flip hint */}
+                        <div style={{ marginTop:8, display:"flex", alignItems:"center", justifyContent:"flex-end", gap:4 }}>
+                          <span style={{ ...s.mono, fontSize:9, color:inkFaint, letterSpacing:"0.06em" }}>flip for pros / cons</span>
+                          <span style={{ ...s.mono, fontSize:10, color:inkFaint }}>↺</span>
                         </div>
                       </div>
-                    )}
+
+                      {/* ── BACK FACE ── */}
+                      <div
+                        onClick={() => flipCard(card.id)}
+                        style={{
+                          position:"absolute", top:0, left:0, right:0, bottom:0,
+                          backfaceVisibility:"hidden", WebkitBackfaceVisibility:"hidden",
+                          transform:"rotateY(180deg)",
+                          background:catColor, borderRadius:12,
+                          padding:"14px 15px", overflow:"hidden",
+                          cursor:"pointer", display:"flex", flexDirection:"column"
+                        }}
+                      >
+                        {/* Back header */}
+                        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
+                          <div style={{ fontSize:15, fontWeight:700, color:ink, lineHeight:1.2 }}>{card.name}</div>
+                          <span style={{ ...s.mono, fontSize:9, color:inkFaint, letterSpacing:"0.06em" }}>↺ flip</span>
+                        </div>
+
+                        <div style={{ height:1, background:"rgba(0,0,0,0.12)", marginBottom:11 }} />
+
+                        {/* Pros */}
+                        <div style={{ marginBottom:10 }}>
+                          <div style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:inkFaint, marginBottom:7 }}>PROS</div>
+                          {card.pros.map((p,j) => (
+                            <div key={j} style={{ fontSize:11, marginBottom:5, display:"flex", gap:7, alignItems:"flex-start", lineHeight:1.45 }}>
+                              <span style={{ ...s.mono, color:"rgba(0,0,0,0.35)", flexShrink:0, fontWeight:600 }}>[+]</span>
+                              <span style={{ color:"rgba(0,0,0,0.72)" }}>{p}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div style={{ height:1, background:"rgba(0,0,0,0.12)", marginBottom:11 }} />
+
+                        {/* Cons */}
+                        <div style={{ flex:1, overflow:"auto" }}>
+                          <div style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:inkFaint, marginBottom:7 }}>CONS</div>
+                          {card.cons.map((p,j) => (
+                            <div key={j} style={{ fontSize:11, marginBottom:5, display:"flex", gap:7, alignItems:"flex-start", lineHeight:1.45 }}>
+                              <span style={{ ...s.mono, color:"rgba(0,0,0,0.35)", flexShrink:0, fontWeight:600 }}>[–]</span>
+                              <span style={{ color:"rgba(0,0,0,0.72)" }}>{p}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Vertical category label */}
+                        <div style={{
+                          position:"absolute", right:10, top:"50%",
+                          writingMode:"vertical-rl", transform:"translateY(-50%) rotate(180deg)",
+                          ...s.mono, fontSize:8, fontWeight:700, letterSpacing:"0.22em",
+                          color:"rgba(0,0,0,0.14)", whiteSpace:"nowrap", pointerEvents:"none"
+                        }}>{card.sub.toUpperCase()}</div>
+                      </div>
+
+                    </div>
                   </div>
                 );
               })}
@@ -641,12 +799,12 @@ export default function EETIToolkit() {
       )}
 
       <style>{`
-        @keyframes fadeIn { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:translateY(0) } }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
         *::-webkit-scrollbar { width:6px }
         *::-webkit-scrollbar-track { background:${bg} }
         *::-webkit-scrollbar-thumb { background:${border}; border-radius:3px }
-        button:hover { opacity:0.85 }
         input::placeholder { color:${textDim} }
+        pre { margin:0 }
       `}</style>
     </div>
   );
