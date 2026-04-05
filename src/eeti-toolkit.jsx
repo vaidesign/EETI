@@ -565,6 +565,14 @@ export default function EETIToolkit() {
     return m;
   }, [selected]);
 
+  // ── CONTRAST HELPER ───────────────────────────────────────
+  function textOnBg(hex) {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    return (0.299*r + 0.587*g + 0.114*b) > 140 ? "#0F0F0F" : "#FFFFFF";
+  }
+
   // ── STYLES ────────────────────────────────────────────────
   const bg = "#F5F4F0";
   const surface = "#FFFFFF";
@@ -704,28 +712,27 @@ export default function EETIToolkit() {
                         style={{
                           position:"absolute", top:0, left:0, right:0, bottom:0,
                           backfaceVisibility:"hidden", WebkitBackfaceVisibility:"hidden",
-                          background:"#FFFFFF", borderRadius:6,
+                          background: sel ? catColor : "#FFFFFF", borderRadius:6,
                           border:`${sel?"2.5px":"1.5px"} solid #1A1A1A`,
                           overflow:"hidden", cursor:"pointer", display:"flex", flexDirection:"column",
-                          transition:"border-width 0.1s, background 0.1s",
-                          ...(sel ? { background:"#EDEDEA" } : {})
+                          transition:"border-width 0.15s, background 0.2s"
                         }}
                       >
                         {/* Category color top strip */}
-                        <div style={{ height:6, background:catColor, flexShrink:0 }} />
+                        <div style={{ height:6, background: sel ? "rgba(0,0,0,0.15)" : catColor, flexShrink:0 }} />
 
                         {/* Content area */}
                         <div style={{ padding:"12px 14px", display:"flex", flexDirection:"column", flex:1, overflow:"hidden" }}>
                           {/* Sub-label + select button */}
                           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
-                            <span style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:"#9E9C99", textTransform:"uppercase" }}>{card.sub}</span>
+                            <span style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color: sel ? textOnBg(catColor)==="#FFFFFF" ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.45)" : "#9E9C99", textTransform:"uppercase" }}>{card.sub}</span>
                             <button
                               onClick={e => { e.stopPropagation(); toggle(card.id); }}
                               style={{
                                 width:22, height:22, borderRadius:"50%", flexShrink:0,
-                                border:`2px solid ${sel ? "#1A1A1A" : "#BBBBBB"}`,
-                                background: sel ? "#1A1A1A" : "transparent",
-                                color: sel ? "#FFFFFF" : "#9E9C99",
+                                border:`2px solid ${sel ? textOnBg(catColor) : "#BBBBBB"}`,
+                                background: sel ? textOnBg(catColor) : "transparent",
+                                color: sel ? (textOnBg(catColor)==="#FFFFFF" ? catColor : "#FFFFFF") : "#9E9C99",
                                 cursor:"pointer", fontSize:11, fontWeight:700,
                                 display:"flex", alignItems:"center", justifyContent:"center",
                                 lineHeight:1, padding:0, transition:"all 0.15s"
@@ -737,21 +744,22 @@ export default function EETIToolkit() {
                           <pre style={{
                             fontFamily:"'IBM Plex Mono',monospace", fontSize:11, lineHeight:1.38,
                             margin:"0 0 11px", padding:"8px 10px",
-                            background:"rgba(0,0,0,0.04)", borderRadius:4,
-                            color:"rgba(0,0,0,0.5)", overflow:"hidden", whiteSpace:"pre",
+                            background:"rgba(0,0,0,0.08)", borderRadius:4,
+                            color: sel ? (textOnBg(catColor)==="#FFFFFF" ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.45)") : "rgba(0,0,0,0.5)",
+                            overflow:"hidden", whiteSpace:"pre",
                             flexShrink:0, height:80
                           }}>{graphic}</pre>
 
                           {/* Name */}
-                          <div style={{ fontSize:15, fontWeight:700, color:"#0F0F0F", letterSpacing:"-0.01em", marginBottom:5, lineHeight:1.2 }}>{card.name}</div>
+                          <div style={{ fontSize:15, fontWeight:700, color: sel ? textOnBg(catColor) : "#0F0F0F", letterSpacing:"-0.01em", marginBottom:5, lineHeight:1.2 }}>{card.name}</div>
 
                           {/* Description */}
-                          <div style={{ fontSize:12, lineHeight:1.55, color:"#716F6C", flex:1, overflow:"hidden" }}>{card.desc}</div>
+                          <div style={{ fontSize:12, lineHeight:1.55, color: sel ? (textOnBg(catColor)==="#FFFFFF" ? "rgba(255,255,255,0.75)" : "rgba(0,0,0,0.6)") : "#716F6C", flex:1, overflow:"hidden" }}>{card.desc}</div>
 
                           {/* Flip hint */}
                           <div style={{ marginTop:8, display:"flex", alignItems:"center", justifyContent:"flex-end", gap:4 }}>
-                            <span style={{ ...s.mono, fontSize:9, color:"#BBBBBB", letterSpacing:"0.06em" }}>flip for pros / cons</span>
-                            <span style={{ ...s.mono, fontSize:10, color:"#BBBBBB" }}>↺</span>
+                            <span style={{ ...s.mono, fontSize:9, color: sel ? (textOnBg(catColor)==="#FFFFFF" ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.3)") : "#BBBBBB", letterSpacing:"0.06em" }}>flip for pros / cons</span>
+                            <span style={{ ...s.mono, fontSize:10, color: sel ? (textOnBg(catColor)==="#FFFFFF" ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.3)") : "#BBBBBB" }}>↺</span>
                           </div>
                         </div>
                       </div>
