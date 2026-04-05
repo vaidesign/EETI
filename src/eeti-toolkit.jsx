@@ -189,6 +189,15 @@ const CARDS = [
   { id:"tempcontinuous",cat:"temporal",name:"Continuous",sub:"Temporal",img:"temporal_continuous.png",desc:"Ongoing output that runs as long as a condition is true — streaming, always-on.",pros:["Real-time representation of live state","No latency between state and display","Natural for sensor streams"],cons:["High power consumption","Generates large data volumes","Can overwhelm user with constant change"],considerations:["Consider decimation or smoothing to reduce update rate","Rolling average prevents jitter in displayed value","Audio and haptic continuous output needs volume/intensity control"] },
   { id:"tempscheduled",cat:"temporal",name:"Scheduled",sub:"Temporal",img:"temporal_scheduled.png",desc:"Action or output fires at a predetermined time or interval — alarm, reminder, report.",pros:["Predictable and plannable by user","Can be set and forgotten","Enables duty cycling for power saving"],cons:["Requires accurate real-time clock","Timezone and DST handling is error-prone","User must set it up"],considerations:["RTC module (DS3231) for accurate timekeeping off main MCU","Store schedule in non-volatile memory to survive power loss","Always show next scheduled time to user for confirmation"] },
   { id:"tempcontextual",cat:"temporal",name:"Contextual",sub:"Temporal",img:"temporal_contextual.png",desc:"Timing adapts to user context — slows at night, speeds up under urgency, pauses when asleep.",pros:["Feels intelligent and considerate","Reduces disturbance in wrong contexts","Can significantly reduce notification fatigue"],cons:["Context sensing adds complexity and sensors","Wrong context inference is frustrating","Privacy implications of context sensing"],considerations:["Simple heuristics: 11pm–7am = silent mode, no motion = sleeping","Phone accelerometer or light sensor can infer context cheaply","Always allow override — context inference is imperfect"] },
+
+  // PATTERN / FEEDBACK MODALITY
+  { id:"modalvisual",cat:"modality",name:"Visual Only",sub:"Modality",img:"modal_visual.png",desc:"All feedback delivered through the eyes alone — screens, lights, indicators.",pros:["High information density","Precise and spatial","Silent — no audio disturbance"],cons:["Requires eyes on device","Fails in dark or bright glare","Inaccessible for visually impaired"],considerations:["Use for secondary/ambient info where audio would be disruptive","High-contrast design for glare environments","Always pair with at least one non-visual channel for critical alerts"] },
+  { id:"modalaudio",cat:"modality",name:"Audio Only",sub:"Modality",img:"modal_audio.png",desc:"All feedback delivered through sound alone — tones, speech, earcons.",pros:["Works eyes-free","Reaches user at distance","Rich information via speech"],cons:["Disturbs others in shared spaces","Ambient noise can mask it","Hearing impairment blocks it"],considerations:["Earcon design: short, distinct, and learnable","Bone conduction for private audio without earphones","Speech synthesis for screen-reader compatible devices"] },
+  { id:"modalhaptic",cat:"modality",name:"Haptic Only",sub:"Modality",img:"modal_haptic.png",desc:"All feedback delivered through touch and vibration alone — private and silent.",pros:["Private — only felt by wearer","Silent in shared spaces","Works eyes and ears busy"],cons:["Limited vocabulary without learning","Intensity varies by skin location","Weak for distance notification"],considerations:["LRA motors for precise pattern playback","Body location significantly affects perception: wrist vs chest vs thigh","3 short pulses is near-universal notification pattern"] },
+  { id:"modalredundant",cat:"modality",name:"Multimodal Redundant",sub:"Modality",img:"modal_redundant.png",desc:"Same message delivered simultaneously through multiple channels — see it, hear it, feel it.",pros:["Maximum reliability — redundancy covers sensory failures","Accessible to diverse users","Highly noticeable for critical alerts"],cons:["Potentially overwhelming","All channels must be dismissible","Can feel disproportionate for low-priority info"],considerations:["Standard for safety-critical systems (emergency alarms)","Give user control over which channels are active","Test that each channel alone is still intelligible"] },
+  { id:"modalcomplementary",cat:"modality",name:"Multimodal Complementary",sub:"Modality",img:"modal_complementary.png",desc:"Different channels carry different parts of the message — visual shows what, haptic shows when.",pros:["Efficient — each channel does what it does best","Richer total communication than single channel","Feels natural — mirrors real world"],cons:["More design complexity","Channels must be synchronised","Users must learn the mapping"],considerations:["Classic: visual indicator + haptic pulse on state change","Audio carries urgency, visual carries content","Asynchrony between channels destroys the effect — sync carefully"] },
+  { id:"modalperipheral",cat:"modality",name:"Peripheral",sub:"Modality",img:"modal_peripheral.png",desc:"Feedback designed to be noticed in the edge of attention — ambient, not demanding.",pros:["Doesn't interrupt primary task","Provides awareness without demanding focus","Lower cognitive load"],cons:["Easy to miss completely","Not suitable for urgent alerts","Requires ambient display or always-on indicator"],considerations:["Slow colour change, ambient light, or background audio cue","Used in notification lights, activity rings, ambient orbs","Design for glanceability — meaningful in <200ms of attention"] },
+  { id:"modalfocal",cat:"modality",name:"Focal",sub:"Modality",img:"modal_focal.png",desc:"Feedback designed to capture full attention and demand acknowledgement.",pros:["Cannot be missed","Appropriate for critical or time-sensitive information","Forces user to engage"],cons:["Interrupts current task","Frustrating if overused for low-priority events","Needs clear dismiss mechanism"],considerations:["Modal dialogs, full-screen alerts, strong haptic + audio + visual together","Reserve focal feedback for truly important events only","Always include a dismiss or snooze option — no inescapable alerts"] },
 ];
 
 // ── ASCII CARD GRAPHICS ────────────────────────────────────────
@@ -311,6 +320,15 @@ const CARD_GRAPHICS = {
   tempscheduled:"  ╭──╮\n  │12│\n  ╰──╯",
   tempcontextual:"  ◐◓◑\n  ─────",
   temporal:     "  │·│·│\n  ─────",
+  // Feedback Modality
+  modalvisual:  "  ╔═══╗\n  ║ ▲ ║\n  ╚═══╝",
+  modalaudio:   "  ))\n ─▐█▌─\n  ))\n  ─┴─",
+  modalhaptic:  "  ≋≋≋\n ─╫╫╫─\n  ≋≋≋",
+  modalredundant:" ▲ ))\n─╫╫╫─\n  ─┴─",
+  modalcomplementary:" ▲\n ─╫─\n  ))",
+  modalperipheral:"· · ·\n · ◈ ·\n· · ·",
+  modalfocal:   " ╔════╗\n ║ !! ║\n ╚════╝",
+  modality:     "  ◉))\n  ─┼─\n  ─┴─",
 };
 
 // ── CATEGORY DEFINITIONS ──────────────────────────────────────
@@ -329,6 +347,7 @@ const CATEGORIES = {
   platform:      { label:"Platform",   color:"#C8FF00", group:"enable" },
   physaffordance:{ label:"Affordance", color:"#FF6B8A", group:"pattern" },
   temporal:      { label:"Temporal",   color:"#A78BFA", group:"pattern" },
+  modality:      { label:"Modality",   color:"#60A5FA", group:"pattern" },
 };
 
 const GROUPS = {
