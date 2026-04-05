@@ -158,6 +158,23 @@ const CARDS = [
   { id:"windows",cat:"platform",name:"Windows",sub:"Platform",img:"enable_windows.png",desc:"Windows OS — for desktop/kiosk applications with full computing.",pros:["Full software ecosystem","Peripheral support","Development tools"],cons:["Heavy resources","Boot time","Licensing"],considerations:["Good for kiosks and installations","Consider Windows IoT for embedded","Overkill for simple embedded tasks"] },
   { id:"linux",cat:"platform",name:"Linux",sub:"Platform",img:"enable_linux.png",desc:"Linux OS — flexible open-source platform for SBCs and embedded computers.",pros:["Open source and free","Huge driver ecosystem","Highly configurable for production"],cons:["Boot time (seconds not ms)","No hard real-time guarantees without patching","Setup complexity vs RTOS"],considerations:["Raspberry Pi / NVIDIA Jetson for prototyping","Yocto or Buildroot for lean production images","PREEMPT_RT patch provides near-real-time for most use cases"] },
   { id:"rtos",cat:"platform",name:"RTOS",sub:"Platform",img:"enable_rtos.png",desc:"Real-Time Operating System — FreeRTOS, Zephyr, or ThreadX. Deterministic task scheduling.",pros:["Hard real-time guarantees — microsecond timing","Tiny footprint — runs on bare MCU","Deterministic and auditable for safety-critical use"],cons:["No rich display UI framework","Steeper learning curve than Arduino","Smaller ecosystem than Linux"],considerations:["FreeRTOS has widest MCU support (ESP32, STM32, etc.)","Zephyr OS has strong BLE, Thread, Zigbee stacks","Use when timing precision < 1ms is required"] },
+
+  // PATTERN / PHYSICAL AFFORDANCE
+  { id:"pressafford",cat:"physaffordance",name:"Press",sub:"Affordance",img:"afford_press.png",desc:"A surface or element that invites downward force — button, key, or membrane pad.",pros:["Universally understood action","Clear tactile confirmation possible","Discrete and intentional"],cons:["Requires surface contact","Can fatigue with heavy use"],considerations:["Travel distance and actuation force define the feel","Click or snap feedback makes action feel complete","Raised edges help locate button eyes-free"] },
+  { id:"squeezeafford",cat:"physaffordance",name:"Squeeze",sub:"Affordance",img:"afford_squeeze.png",desc:"Two opposing surfaces that compress when gripped — handles, bulbs, grips.",pros:["Natural bimanual or unimanual grip action","High force input available","Tactile and proprioceptive clarity"],cons:["Limited to objects that can be held","Not accessible for weak grip"],considerations:["Force-sensitive resistor or strain gauge detects squeeze intensity","Used in stress-relief devices, medical grips, and trigger inputs","Map squeeze force to analog value for expressive control"] },
+  { id:"twistafford",cat:"physaffordance",name:"Twist",sub:"Affordance",img:"afford_twist.png",desc:"Rotational motion of a handle, cap, or knob — like opening a jar.",pros:["Natural for setting values","Provides continuous range","Eyes-free operation possible"],cons:["Requires secure grip","Two-hand twist needs symmetric grip points"],considerations:["Rotary encoder or potentiometer captures twist angle","Soft stops or detents prevent over-rotation","Good for volume, intensity, and selection on physical products"] },
+  { id:"slideafford",cat:"physaffordance",name:"Slide",sub:"Affordance",img:"afford_slide.png",desc:"Linear movement along a track — sliders, drawers, locking mechanisms.",pros:["Position maps directly to value — intuitive","Visible state even without power","Satisfying smooth motion"],cons:["Track accumulates dust and debris","Linear space requirement"],considerations:["Conductive plastic or optical encoder for smooth reading","Motorised slider can provide haptic feedback and auto-position","Wide slider caps are more ergonomic than narrow ones"] },
+  { id:"tiltafford",cat:"physaffordance",name:"Tilt",sub:"Affordance",img:"afford_tilt.png",desc:"Leaning or angling an object to indicate direction or preference.",pros:["Natural spatial metaphor","No surface contact needed","Works as passive always-on affordance"],cons:["Sensitive to accidental tilts","Requires accelerometer or gyroscope"],considerations:["Dead-zone calibration prevents false positives from natural hand sway","Tilt direction → navigation direction is intuitive","Consider paired with visual indicator showing tilt axis"] },
+  { id:"shakeafford",cat:"physaffordance",name:"Shake",sub:"Affordance",img:"afford_shake.png",desc:"Rapid back-and-forth physical agitation — used for undo, shuffle, or reset.",pros:["Dramatic and memorable","No screen or button needed","Attention-grabbing as an output trigger"],cons:["High accidental trigger risk","Requires high-g threshold to differentiate from walking"],considerations:["Threshold typically >2g peak to avoid false positives","Provide clear undo-the-undo option","Avoid in devices worn on the body — steps and movement cause constant triggers"] },
+  { id:"tapafford",cat:"physaffordance",name:"Tap",sub:"Affordance",img:"afford_tap.png",desc:"Brief contact with a surface — finger, knuckle, or stylus touch.",pros:["Low cognitive load — simplest possible action","Fast and precise","Works on any hard surface with accelerometer"],cons:["Easy to mis-trigger on sensitive surfaces","Limited expressiveness alone"],considerations:["Double-tap and long-press extend vocabulary from single surface","Accelerometer in object detects tap on enclosure surface","Force threshold distinguishes accidental graze from intentional tap"] },
+  { id:"strokeafford",cat:"physaffordance",name:"Stroke",sub:"Affordance",img:"afford_stroke.png",desc:"Slow, deliberate linear touch movement — caress or wipe gesture.",pros:["Calming, intimate interaction quality","Continuous and directional","Well-suited to emotional or ambient devices"],cons:["Slow — not for time-sensitive input","Requires sensitive capacitive strip or surface"],considerations:["Resistive or capacitive strip detects stroke direction and speed","Used in pet robots, wellness devices, ambient interfaces","Speed of stroke can carry meaning — gentle vs urgent"] },
+  { id:"pullaff",cat:"physaffordance",name:"Pull",sub:"Affordance",img:"afford_pull.png",desc:"Drawing an object, surface, or cord toward the body — ergonomic retrieval action.",pros:["Natural for retrieval, activation, or unlatching","High-force capable","Intuitive — pulling a cord to activate is cross-cultural"],cons:["Mechanical complexity for cord management","Return mechanism required"],considerations:["Spring return vs ratchet latch are very different experiences","Cord pull activation has long history in emergency and accessibility devices","Map pull distance to output intensity for expressive control"] },
+  { id:"foldafford",cat:"physaffordance",name:"Fold",sub:"Affordance",img:"afford_fold.png",desc:"Bending or folding a flexible surface — origami-inspired physical interaction.",pros:["Novel and memorable","Large surface area can reduce to small form","Can encode state in physical form"],cons:["Flexible materials have limited sensing options","Durability concerns at fold creases","Manufacturing complexity"],considerations:["Conductive fabric or bend sensor in fold crease detects angle","Shape memory polymer returns to original form","Foldable phones and e-paper are pushing this space forward"] },
+  { id:"coverafford",cat:"physaffordance",name:"Cover",sub:"Affordance",img:"afford_cover.png",desc:"Placing a hand, object, or lid over a sensor or screen to trigger or mask.",pros:["Intuitive privacy gesture","Cheap to implement — proximity or light sensor","Natural sleep or mute interaction"],cons:["Hard to communicate without onboarding","Accidental triggers from pockets/bags"],considerations:["Proximity or LDR sensor detects cover easily","Phone face-down = mute calls is well-established pattern","Cover + timer = snooze pattern for notifications"] },
+  { id:"hoverafford",cat:"physaffordance",name:"Hover",sub:"Affordance",img:"afford_hover.png",desc:"Approaching a surface without touching — preview and anticipation interaction layer.",pros:["Contactless — hygienic","Provides preview before commitment","Works in PPE or gloved contexts"],cons:["Hard to communicate without cues","Needs proximity or capacitive sensor","Less precise than contact"],considerations:["Capacitive proximity detects hand 2–5cm above surface","Useful for menus that reveal on approach","Define transition from hover-preview to touch-confirm clearly"] },
+  { id:"blowafford",cat:"physaffordance",name:"Blow",sub:"Affordance",img:"afford_blow.png",desc:"Directing breath at a sensor or opening — extinguish, dismiss, or activate.",pros:["Hands-free","Memorable and playful","Accessible for limited mobility"],cons:["Hygienic concerns in shared devices","Inconsistent detection across users","Only works at close range"],considerations:["Directional mic or barometric pressure sensor detects breath","Used in candle-simulation interfaces and accessibility tools","Pair with visual feedback showing breath detection threshold"] },
+  { id:"traceafford",cat:"physaffordance",name:"Trace",sub:"Affordance",img:"afford_trace.png",desc:"Drawing a path or shape on a surface — signature, pattern unlock, or drawing.",pros:["High information density in single gesture","Can encode complex patterns for authentication","Natural and expressive"],cons:["Requires precision surface","Slow compared to button"],considerations:["Capacitive touch surface needed for continuous path tracking","Pattern recognition can enable unlock codes","Trace + shape recognition for symbol-based input systems"] },
+  { id:"pinchafford",cat:"physaffordance",name:"Pinch",sub:"Affordance",img:"afford_pinch.png",desc:"Two fingers closing on a surface or object — grip, zoom-out, close.",pros:["Natural for scaling and size reduction","Well-established on touchscreens","Can work on physical objects with FSR"],cons:["Requires multitouch or force sensing","Not accessible for arthritis or weak grip"],considerations:["Force sensing resistors under grip points detect pinch intensity","Pinch-to-zoom is expected behaviour on any touch display","Physical pinch on objects can trigger release or deactivation"] },
 ];
 
 // ── ASCII CARD GRAPHICS ────────────────────────────────────────
@@ -249,6 +266,23 @@ const CARD_GRAPHICS = {
   uwb:          "  ─ ─ ─\n ─ ─◈─ ─\n  ─ ─ ─\n  ~~~~~",
   linux:        "  ╭─ ─╮\n  │ λ │\n  ╰─ ─╯\n  ─────",
   rtos:         "  ┌───┐\n  │t:0│\n  │███│\n  └───┘",
+  // Physical Affordance
+  pressafford:  "   ╭──╮\n   │  │\n   ╰──╯\n   ─▼─",
+  squeezeafford:"  ─┤  ├─\n  ─┤  ├─\n  ─┤  ├─",
+  twistafford:  "  ╭──╮\n  │ ↻│\n  ╰──╯",
+  slideafford:  "  ────┬\n      │\n  ────┘",
+  tiltafford:   " ╭────╮\n╱       \n",
+  shakeafford:  " ≋≋ ≋≋\n≋ ≋ ≋ ≋\n ≋≋ ≋≋",
+  tapafford:    "    ▼\n  ──┼──\n   ─┴─",
+  strokeafford: "  ~~~\n ─────\n  ~~~",
+  pullaff:      "  ◎\n  │\n  │\n  ╰── ▷",
+  foldafford:   "  ╱───╲\n ╱     ╲\n───────",
+  coverafford:  "  ┌────┐\n  │████│\n  └────┘",
+  hoverafford:  "  · · ·\n · ─◈─ ·\n  · · ·",
+  blowafford:   "  ))))\n  ─○─\n  ════",
+  traceafford:  "  ╭─\n  │ ╲\n  │  ╲─╮\n       │",
+  pinchafford:  "  ╲ ╱\n   ╲╱\n   ╱╲\n  ╱ ╲",
+  physaffordance:"  ╭──╮\n ─┤◈ ├─\n  ╰──╯",
 };
 
 // ── CATEGORY DEFINITIONS ──────────────────────────────────────
@@ -264,7 +298,8 @@ const CATEGORIES = {
   port:     { label:"Port",     color:"#3DCC80", group:"enable" },
   charging: { label:"Charging", color:"#FFD040", group:"enable" },
   cooling:  { label:"Cooling",  color:"#80B8D4", group:"enable" },
-  platform: { label:"Platform", color:"#C8FF00", group:"enable" },
+  platform:      { label:"Platform",   color:"#C8FF00", group:"enable" },
+  physaffordance:{ label:"Affordance", color:"#FF6B8A", group:"pattern" },
 };
 
 const GROUPS = {
@@ -272,6 +307,7 @@ const GROUPS = {
   input:   { label:"INPUT",    color:"#FFBE7A" },
   output:  { label:"OUTPUT",   color:"#5BC8FF" },
   enable:  { label:"ENABLE",   color:"#5BE8A4" },
+  pattern: { label:"PATTERN",  color:"#FF6B8A" },
 };
 
 // ── DEPENDENCY RULES ──────────────────────────────────────────
