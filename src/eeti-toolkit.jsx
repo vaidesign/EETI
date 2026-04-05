@@ -618,7 +618,7 @@ export default function EETIToolkit() {
       {view === "home" && (
         <div style={{ maxWidth:800, margin:"0 auto", padding:"80px 24px", textAlign:"center" }}>
           <h1 style={{ fontFamily:"'Instrument Serif',serif", fontSize:56, fontWeight:400, fontStyle:"italic", lineHeight:1.1, marginBottom:16, color:text }}>
-            Design with<br/><span style={{ color:lime }}>every sense</span>
+            Design with<br/><span style={{ fontWeight:700 }}>every sense</span>
           </h1>
           <p style={{ fontSize:17, color:textDim, maxWidth:540, margin:"0 auto 48px", lineHeight:1.7 }}>
             A toolkit for exploring embedded technology possibilities in connected product design. Select components, understand their design impact, and discover how they work together.
@@ -628,14 +628,14 @@ export default function EETIToolkit() {
             <button style={s.btnSecondary} onClick={()=>setView("profiles")}>Load Example</button>
           </div>
 
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:16, textAlign:"left" }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))", gap:16, textAlign:"left" }}>
             {Object.entries(GROUPS).map(([k,g])=>(
-              <div key={k} style={{ ...s.panel, borderTop:`2px solid ${g.color}` }}>
-                <div style={{ ...s.mono, fontSize:11, color:g.color, fontWeight:600, marginBottom:8, letterSpacing:"0.1em" }}>{g.label}</div>
-                <div style={{ fontSize:13, color:textDim }}>
+              <div key={k} style={{ ...s.panel, borderTop:`4px solid ${g.color}` }}>
+                <div style={{ ...s.mono, fontSize:10, color:"#9E9C99", fontWeight:700, marginBottom:8, letterSpacing:"0.12em" }}>{g.label}</div>
+                <div style={{ fontSize:12, color:textDim, marginBottom:12 }}>
                   {Object.entries(CATEGORIES).filter(([,v])=>v.group===k).map(([,v])=>v.label).join(" · ")}
                 </div>
-                <div style={{ ...s.mono, fontSize:22, fontWeight:700, marginTop:12, color:text }}>
+                <div style={{ ...s.mono, fontSize:28, fontWeight:700, color:text }}>
                   {CARDS.filter(c=>CATEGORIES[c.cat]?.group===k).length}
                 </div>
                 <div style={{ fontSize:11, color:textDim }}>components</div>
@@ -655,9 +655,9 @@ export default function EETIToolkit() {
               <div key={gk}>
                 <div style={{ padding:"8px 20px 4px", ...s.mono, fontSize:10, color:g.color, letterSpacing:"0.15em", fontWeight:600 }}>{g.label}</div>
                 {Object.entries(CATEGORIES).filter(([,v])=>v.group===gk).map(([ck,cv])=>(
-                  <button key={ck} style={s.catBtn(activeCat===ck)} onClick={()=>{setActiveCat(ck);setSearch("")}}>
+                  <button key={ck} style={s.catBtn(activeCat===ck, cv.color)} onClick={()=>{setActiveCat(ck);setSearch("")}}>
                     <span>{cv.label}</span>
-                    {countByCat[ck] > 0 && <span style={{ ...s.mono, fontSize:11, color:lime, fontWeight:700 }}>{countByCat[ck]}</span>}
+                    {countByCat[ck] > 0 && <span style={{ ...s.mono, fontSize:11, color:"#1A1A1A", fontWeight:700 }}>{countByCat[ck]}</span>}
                   </button>
                 ))}
               </div>
@@ -678,7 +678,7 @@ export default function EETIToolkit() {
               <input
                 type="text" placeholder="Search..."
                 value={search} onChange={e=>setSearch(e.target.value)}
-                style={{ padding:"8px 14px", borderRadius:6, border:`1px solid ${border}`, background:surfaceLight, color:text, fontSize:13, width:200, outline:"none", ...s.mono }}
+                style={{ padding:"8px 14px", borderRadius:4, border:`1px solid ${borderLight}`, background:"#F5F4F0", color:text, fontSize:13, width:200, outline:"none", ...s.mono }}
               />
             </div>
 
@@ -826,7 +826,7 @@ export default function EETIToolkit() {
           <div style={{ width:280, borderLeft:`1px solid ${border}`, overflowY:"auto", paddingBottom:80, flexShrink:0 }}>
             <div style={{ padding:"16px 16px 8px", ...s.mono, fontSize:11, color:textDim, letterSpacing:"0.1em", display:"flex", justifyContent:"space-between" }}>
               <span>SELECTION</span>
-              <span style={{ color:lime }}>{selected.size}</span>
+              <span style={{ color:border }}>{selected.size}</span>
             </div>
             {selected.size === 0 ? (
               <div style={{ padding:16, fontSize:13, color:textDim }}>Click cards to select components for your product concept.</div>
@@ -894,7 +894,7 @@ export default function EETIToolkit() {
         <div style={{ maxWidth:900, margin:"0 auto", padding:"40px 24px" }}>
           <div style={{ display:"flex", alignItems:"baseline", justifyContent:"space-between", marginBottom:32 }}>
             <div>
-              <div style={{ ...s.mono, fontSize:11, color:lime, letterSpacing:"0.15em", marginBottom:4 }}>ANALYSIS</div>
+              <div style={{ ...s.mono, fontSize:11, color:"#1A1A1A", letterSpacing:"0.15em", marginBottom:4 }}>ANALYSIS</div>
               <input
                 value={projectName} onChange={e=>setProjectName(e.target.value)}
                 style={{ fontFamily:"'Instrument Serif',serif", fontSize:36, fontWeight:400, fontStyle:"italic", background:"transparent", border:"none", color:text, outline:"none", width:"100%" }}
@@ -905,7 +905,7 @@ export default function EETIToolkit() {
 
           {selected.size === 0 ? (
             <div style={s.panel}>
-              <p style={{ color:textDim }}>No components selected. Go to <button style={{ color:lime, background:"none", border:"none", cursor:"pointer", textDecoration:"underline" }} onClick={()=>setView("build")}>Build</button> to start selecting, or load a <button style={{ color:lime, background:"none", border:"none", cursor:"pointer", textDecoration:"underline" }} onClick={()=>setView("profiles")}>Profile</button>.</p>
+              <p style={{ color:textDim }}>No components selected. Go to <button style={{ color:"#1A1A1A", background:"none", border:"none", cursor:"pointer", textDecoration:"underline" }} onClick={()=>setView("build")}>Build</button> to start selecting, or load a <button style={{ color:"#1A1A1A", background:"none", border:"none", cursor:"pointer", textDecoration:"underline" }} onClick={()=>setView("profiles")}>Profile</button>.</p>
             </div>
           ) : (
             <>
@@ -976,8 +976,8 @@ export default function EETIToolkit() {
 
               {/* Strengths */}
               {analysis.gaps.length === 0 && (
-                <div style={{ ...s.panel, borderColor:lime }}>
-                  <div style={{ ...s.mono, fontSize:11, color:lime, letterSpacing:"0.1em", marginBottom:8 }}>✓ ALL DEPENDENCIES MET</div>
+                <div style={{ ...s.panel, borderColor:"#1A1A1A" }}>
+                  <div style={{ ...s.mono, fontSize:11, color:"#1A1A1A", letterSpacing:"0.1em", marginBottom:8 }}>✓ ALL DEPENDENCIES MET</div>
                   <div style={{ fontSize:14, color:textDim }}>All selected components have their required dependencies covered. Your combination is technically viable.</div>
                 </div>
               )}
@@ -990,7 +990,7 @@ export default function EETIToolkit() {
                   const empty = gc.length === 0;
                   return (
                     <div key={gk} style={{ display:"flex", alignItems:"center", gap:12, marginBottom:8 }}>
-                      <span style={{ ...s.mono, fontSize:20, color:empty?"#F90":lime }}>{empty?"○":"●"}</span>
+                      <span style={{ ...s.mono, fontSize:20, color:empty?"#F90":"#1A1A1A" }}>{empty?"○":"●"}</span>
                       <span style={{ fontSize:13, color:empty?"#F90":textDim }}>{g.label}: {gc.length === 0 ? "No components selected" : `${gc.length} selected`}</span>
                     </div>
                   );
@@ -1004,7 +1004,7 @@ export default function EETIToolkit() {
       {/* PROFILES VIEW */}
       {view === "profiles" && (
         <div style={{ maxWidth:800, margin:"0 auto", padding:"40px 24px" }}>
-          <div style={{ ...s.mono, fontSize:11, color:lime, letterSpacing:"0.15em", marginBottom:8 }}>EXAMPLE PROFILES</div>
+          <div style={{ ...s.mono, fontSize:11, color:"#1A1A1A", letterSpacing:"0.15em", marginBottom:8 }}>EXAMPLE PROFILES</div>
           <h2 style={{ fontFamily:"'Instrument Serif',serif", fontSize:32, fontWeight:400, fontStyle:"italic", marginBottom:8 }}>Learn from real combinations</h2>
           <p style={{ fontSize:14, color:textDim, marginBottom:32 }}>Load a profile to see how components work together in real product concepts. Modify them to explore alternatives.</p>
 
@@ -1038,7 +1038,7 @@ export default function EETIToolkit() {
       {selected.size > 0 && view === "build" && (
         <div style={s.selTray}>
           <div style={{ display:"flex", alignItems:"center", gap:12 }}>
-            <span style={{ ...s.mono, fontSize:13, color:lime, fontWeight:700 }}>{selected.size}</span>
+            <span style={{ ...s.mono, fontSize:13, color:"#1A1A1A", fontWeight:700 }}>{selected.size}</span>
             <span style={{ fontSize:13, color:textDim }}>components selected</span>
             <div style={{ display:"flex", gap:4, marginLeft:8 }}>
               {Object.entries(GROUPS).map(([gk,g])=>{
