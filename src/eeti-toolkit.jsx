@@ -198,6 +198,18 @@ const CARDS = [
   { id:"modalcomplementary",cat:"modality",name:"Multimodal Complementary",sub:"Modality",img:"modal_complementary.png",desc:"Different channels carry different parts of the message — visual shows what, haptic shows when.",pros:["Efficient — each channel does what it does best","Richer total communication than single channel","Feels natural — mirrors real world"],cons:["More design complexity","Channels must be synchronised","Users must learn the mapping"],considerations:["Classic: visual indicator + haptic pulse on state change","Audio carries urgency, visual carries content","Asynchrony between channels destroys the effect — sync carefully"] },
   { id:"modalperipheral",cat:"modality",name:"Peripheral",sub:"Modality",img:"modal_peripheral.png",desc:"Feedback designed to be noticed in the edge of attention — ambient, not demanding.",pros:["Doesn't interrupt primary task","Provides awareness without demanding focus","Lower cognitive load"],cons:["Easy to miss completely","Not suitable for urgent alerts","Requires ambient display or always-on indicator"],considerations:["Slow colour change, ambient light, or background audio cue","Used in notification lights, activity rings, ambient orbs","Design for glanceability — meaningful in <200ms of attention"] },
   { id:"modalfocal",cat:"modality",name:"Focal",sub:"Modality",img:"modal_focal.png",desc:"Feedback designed to capture full attention and demand acknowledgement.",pros:["Cannot be missed","Appropriate for critical or time-sensitive information","Forces user to engage"],cons:["Interrupts current task","Frustrating if overused for low-priority events","Needs clear dismiss mechanism"],considerations:["Modal dialogs, full-screen alerts, strong haptic + audio + visual together","Reserve focal feedback for truly important events only","Always include a dismiss or snooze option — no inescapable alerts"] },
+
+  // FORM / MATERIAL QUALITY
+  { id:"matsoft",cat:"material",name:"Soft",sub:"Material",img:"mat_soft.png",desc:"Compliant, deformable material — rubber, silicone, foam, soft-touch coating.",pros:["Comfortable for prolonged contact","Absorbs shock and vibration","Feels approachable and safe"],cons:["Collects dust and oils","Degrades faster than hard materials","Less precise for controls"],considerations:["Silicone overmoulding is standard for grip zones and wearables","Shore A 40-60 for comfortable grip","Antimicrobial additives available for healthcare products"] },
+  { id:"mathard",cat:"material",name:"Hard",sub:"Material",img:"mat_hard.png",desc:"Rigid, non-deformable material — polycarbonate, ABS, aluminium, steel.",pros:["Precise dimensions","Durable and scratch-resistant","Premium feel"],cons:["Unforgiving on impact","Cold feel in low temperatures","Transmits vibration without damping"],considerations:["PC/ABS blend balances strength with processability","Texture via moulded grain or sandblasting changes perceived quality","Hard materials need chamfered edges for comfort in handheld devices"] },
+  { id:"matwarm",cat:"material",name:"Warm",sub:"Material",img:"mat_warm.png",desc:"Materials with low thermal conductivity that feel warm to the touch — wood, plastic, fabric.",pros:["Psychologically reassuring","Comfortable for extended skin contact","Natural, organic associations"],cons:["Harder to sterilise than smooth surfaces","Wood requires sealing","Lower precision than metal"],considerations:["Thermal conductivity: wood ~0.1, plastic ~0.2, aluminium ~200 W/mK","Warm feel important for medical devices, children's products, wellness tech","Powder coating on metal adds warm perceived temperature"] },
+  { id:"matcool",cat:"material",name:"Cool / Metal",sub:"Material",img:"mat_cool.png",desc:"High thermal conductivity materials that feel cool and weighty — aluminium, stainless steel, brass.",pros:["Premium, precise feel","Excellent heat dissipation","Durable and scratch-resistant"],cons:["Cold to touch in winter","Heavy","Higher cost and manufacturing complexity"],considerations:["Aluminium 6061 most common for CNC machined enclosures","Anodising adds colour and hardness without adding thickness","Mass of metal creates reassuring weight — can be a deliberate design choice"] },
+  { id:"mattextured",cat:"material",name:"Textured",sub:"Material",img:"mat_textured.png",desc:"Surface with deliberate micro or macro texture — knurling, grain, ribs, dimples.",pros:["Improves grip","Communicates affordance — rough = grip here","Distinguishable by touch alone"],cons:["Texture traps dirt and oils","Complex tooling for moulded texture","UV printing texture has limited durability"],considerations:["Knurling pitch of 0.5–1mm works well for finger grip","Different textures on controls helps blind navigation","Laser etching enables fine custom textures on finished parts"] },
+  { id:"matsmooth",cat:"material",name:"Smooth",sub:"Material",img:"mat_smooth.png",desc:"Polished or gloss-coated surface with minimal friction — glass, chrome, gloss lacquer.",pros:["Easy to clean","Premium, contemporary aesthetic","Low friction enables sliding interactions"],cons:["Fingerprint magnet","Slippery — reduces grip","Scratches show prominently"],considerations:["AG (anti-glare) coating on glass reduces fingerprints and glare","Smooth surfaces communicate 'don't touch here'","Pair smooth passive surfaces with textured interactive zones for clear affordance"] },
+  { id:"matflexible",cat:"material",name:"Flexible",sub:"Material",img:"mat_flexible.png",desc:"Material that bends without breaking — TPU, flexible PCB, textile, silicone film.",pros:["Conforms to body curves","Survives drops via flex","Enables novel folding and wrapping form factors"],cons:["Electronics inside flex zones is challenging","Connector fatigue at flex-rigid transitions","Lower precision than rigid"],considerations:["Flex PCBs rated for 10,000–100,000 flex cycles depending on construction","Strain relief at flex-rigid junction is critical for longevity","TPU overmoulding on rigid chassis gives best of both worlds"] },
+  { id:"mattransparent",cat:"material",name:"Transparent",sub:"Material",img:"mat_transparent.png",desc:"See-through material revealing internal workings or layering depth — glass, clear polycarbonate, acrylic.",pros:["Reveals internals — educational and trust-building","Enables illumination from within","Depth and layering visual effect"],cons:["Shows fingerprints and dust","Structural strength lower than opaque equivalents","Manufacturing requires scratch-free handling"],considerations:["Polycarbonate for impact resistance, acrylic for clarity","Tinted translucent adds character while hiding internal complexity","Light guide design allows controlled internal illumination through transparent walls"] },
+  { id:"matweighted",cat:"material",name:"Weighted",sub:"Material",img:"mat_weighted.png",desc:"Deliberately heavy product — added mass creates premium feel and stability.",pros:["Communicates quality and value","Stays put on surfaces — doesn't slide","Satisfying to handle"],cons:["Heavier for portable use","Higher shipping cost","Material or added ballast cost"],considerations:["Target weight varies by product type: TV remote 130g, pen 15g, headphones 250g","Steel inserts or tungsten ballast in handles for precise weight tuning","Weight distribution matters — top-heavy feels precarious"] },
+  { id:"matlightweight",cat:"material",name:"Lightweight",sub:"Material",img:"mat_lightweight.png",desc:"Minimally massed product — foam fills, magnesium alloy, carbon fibre — for wearables and portables.",pros:["Reduces fatigue in worn or held devices","Better portable user experience","Can enable larger form factors without weight penalty"],cons:["Often more expensive materials","Hollow or thin-wall structures need careful structural design","Can feel cheap if too light"],considerations:["Magnesium alloy is 33% lighter than aluminium with similar strength","Carbon fibre for premium lightweight — cost is significant","Internal ribbing in plastic gives strength without mass"] },
 ];
 
 // ── ASCII CARD GRAPHICS ────────────────────────────────────────
@@ -329,6 +341,18 @@ const CARD_GRAPHICS = {
   modalperipheral:"· · ·\n · ◈ ·\n· · ·",
   modalfocal:   " ╔════╗\n ║ !! ║\n ╚════╝",
   modality:     "  ◉))\n  ─┼─\n  ─┴─",
+  // Material Quality
+  matsoft:      "  ╭──╮\n  ╰──╯\n  ~~~~~",
+  mathard:      "  ┌──┐\n  │  │\n  └──┘",
+  matwarm:      "  ╭──╮\n  │♨ │\n  ╰──╯",
+  matcool:      "  ┌──┐\n  │❄ │\n  └──┘",
+  mattextured:  "  ││││\n  ││││\n  ────",
+  matsmooth:    "  ╔══╗\n  ║  ║\n  ╚══╝",
+  matflexible:  "  ╭~~╮\n  │  │\n  ╰~~╯",
+  mattransparent:" ╭──╮\n ·│  │·\n ╰──╯",
+  matweighted:  "  ┌──┐\n  │▓▓│\n  └──┘\n  ────",
+  matlightweight:" ╭──╮\n ·│  │·\n ╰──╯\n  ────",
+  material:     "  ░▒▓█\n  ─────",
 };
 
 // ── CATEGORY DEFINITIONS ──────────────────────────────────────
@@ -348,6 +372,7 @@ const CATEGORIES = {
   physaffordance:{ label:"Affordance", color:"#FF6B8A", group:"pattern" },
   temporal:      { label:"Temporal",   color:"#A78BFA", group:"pattern" },
   modality:      { label:"Modality",   color:"#60A5FA", group:"pattern" },
+  material:      { label:"Material",   color:"#FBBF24", group:"form" },
 };
 
 const GROUPS = {
@@ -356,6 +381,7 @@ const GROUPS = {
   output:  { label:"OUTPUT",   color:"#5BC8FF" },
   enable:  { label:"ENABLE",   color:"#5BE8A4" },
   pattern: { label:"PATTERN",  color:"#FF6B8A" },
+  form:    { label:"FORM",     color:"#FBBF24" },
 };
 
 // ── DEPENDENCY RULES ──────────────────────────────────────────
