@@ -222,6 +222,13 @@ const CARDS = [
   { id:"spatdirection",cat:"spatial",name:"Direction",sub:"Spatial",img:"spat_direction.png",desc:"Which way an action or signal is going — directional audio, directed haptic, aimed light.",pros:["Spatial information without a screen","Audio or haptic can guide navigation","Intuitive — points toward something"],cons:["Direction rendering requires multiple actuators or beamforming","Hard to communicate direction via single speaker or motor","User must learn spatial audio mapping"],considerations:["Binaural audio (headphones) for directional audio cues","Phased microphone array for directional sound capture","Haptic direction: tapping on left wrist = go left is learnable in minutes"] },
   { id:"spatroomscale",cat:"spatial",name:"Room Scale",sub:"Spatial",img:"spat_roomscale.png",desc:"Interaction designed for the full volume of a room — movement, position, and room acoustics matter.",pros:["Full body interaction possible","Room acoustics carry sound naturally","Large interaction canvas"],cons:["Requires tracking technology across full volume","Wiring and power at room scale is a constraint","Multiple simultaneous users create complexity"],considerations:["UWB anchors or camera arrays for room-scale tracking","WiFi RTT (802.11mc) gives room-scale positioning without extra hardware","Design for both centre-of-room and edge-of-room use cases"] },
   { id:"spatboundary",cat:"spatial",name:"Boundary",sub:"Spatial",img:"spat_boundary.png",desc:"A virtual or physical perimeter that triggers interaction when crossed — geofence, proximity fence.",pros:["Automatic context change without user action","Simple yes/no logic — inside or outside","Scales from centimetres to kilometres"],cons:["Boundary crossing detection latency","False triggers near boundary edge","Multiple overlapping boundaries create logic complexity"],considerations:["BLE beacon ring for indoor room boundary","GPS geofence for outdoor — 5m minimum reliable radius","Hysteresis (enter at 2m, exit at 3m) prevents rapid in/out flickering"] },
+
+  // DESIGN / INTERACTION SCALE
+  { id:"scalemicro",cat:"scale",name:"Micro",sub:"Scale",img:"scale_micro.png",desc:"A single small action completed in under a second — tap, glance, quick confirm.",pros:["Fast, frictionless","High frequency — usable hundreds of times per day","Low cognitive load"],cons:["Limited information transfer per interaction","Easy to trigger accidentally","Must be easily repeatable if mis-triggered"],considerations:["Micro interactions dominate wearable and notification UX","Feedback must be instant (<100ms) or action feels broken","Design the error recovery for accidental micro-interactions first"] },
+  { id:"scalefeature",cat:"scale",name:"Feature",sub:"Scale",img:"scale_feature.png",desc:"A complete task spanning multiple steps — compose a message, set an alarm, configure a setting.",pros:["Meaningful user goal accomplished","Allows richer interaction design","Clear start and end state"],cons:["Users can abandon mid-flow","Requires more sustained attention","Error recovery more complex"],considerations:["5-step maximum for embedded/wearable feature flows","Progress indicator reduces abandonment in multi-step flows","Save partial state — don't lose work if user is interrupted"] },
+  { id:"scalesession",cat:"scale",name:"Session",sub:"Scale",img:"scale_session.png",desc:"A sustained period of active use — 5–30 minutes of continuous engagement with a purpose.",pros:["Allows complex, deeply engaging UX","User is invested — higher tolerance for learning","Rich analytics from session data"],cons:["Requires sustained battery and CPU","User comfort becomes a factor (wrist fatigue, eye strain)","Retention falls off sharply after 20 minutes without hooks"],considerations:["Ergonomics matter for session-length products — weight, heat, grip shape","Battery life must exceed typical session time with margin","Session end state should be graceful — save progress, provide summary"] },
+  { id:"scaleambient",cat:"scale",name:"Ambient / Continuous",sub:"Scale",img:"scale_ambient.png",desc:"Always present, passively consumed — background displays, always-on sensors, ambient indicators.",pros:["No interaction required — information just exists","Can communicate peripheral context without demanding attention","Power of habit — users reference without consciously choosing to"],cons:["Must never demand attention unless critical","Content must stay fresh or users stop seeing it","Always-on power consumption"],considerations:["E-ink or always-on OLED ideal for ambient displays","Content update frequency should match information freshness — hourly weather, not second-by-second","Design for peripheral vision — large, high-contrast, glanceable at any angle"] },
+  { id:"scaleperiodic",cat:"scale",name:"Periodic",sub:"Scale",img:"scale_periodic.png",desc:"Regular check-ins at intervals — daily review, weekly summary, hourly reminder.",pros:["Predictable and plannable for users","Batch information reduces interruption frequency","Can align with natural rhythms (morning, mealtime, bedtime)"],cons:["User must remember or be reminded","Stale between intervals","Wrong interval feels like too much or too little"],considerations:["Let users choose interval — what's perfect for one user is wrong for another","Daily digest is often better than hourly notifications","Periodic interactions work well for health, habit tracking, and maintenance workflows"] },
 ];
 
 // ── ASCII CARD GRAPHICS ────────────────────────────────────────
@@ -377,6 +384,13 @@ const CARD_GRAPHICS = {
   spatroomscale:" ┌─────┐\n │ ◈   │\n └─────┘",
   spatboundary: "  ─ ─ ─\n─      ─\n  ─ ─ ─",
   spatial:      "  ◈\n ─┼─\n  │\n ─┴─",
+  // Interaction Scale
+  scalemicro:   "  ▼\n  ─\n  ·",
+  scalefeature: "  ▶─▶─▶\n  ─────",
+  scalesession: "  ▶────\n  │████\n  ─────",
+  scaleambient: "  · ◈ ·\n ·     ·\n  · · ·",
+  scaleperiodic:"  │ │ │\n  ─────\n  ◷ ◷ ◷",
+  scale:        "  ·─●─█\n  ─────",
 };
 
 // ── CATEGORY DEFINITIONS ──────────────────────────────────────
@@ -398,6 +412,7 @@ const CATEGORIES = {
   modality:      { label:"Modality",   color:"#60A5FA", group:"pattern" },
   material:      { label:"Material",   color:"#FBBF24", group:"form" },
   spatial:       { label:"Spatial",    color:"#34D399", group:"form" },
+  scale:         { label:"Scale",      color:"#F97316", group:"design" },
 };
 
 const GROUPS = {
@@ -407,6 +422,7 @@ const GROUPS = {
   enable:  { label:"ENABLE",   color:"#5BE8A4" },
   pattern: { label:"PATTERN",  color:"#FF6B8A" },
   form:    { label:"FORM",     color:"#FBBF24" },
+  design:  { label:"DESIGN",   color:"#F97316" },
 };
 
 // ── DEPENDENCY RULES ──────────────────────────────────────────
