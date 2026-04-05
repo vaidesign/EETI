@@ -566,31 +566,31 @@ export default function EETIToolkit() {
   }, [selected]);
 
   // ── STYLES ────────────────────────────────────────────────
-  const bg = "#0B0B0B";
-  const surface = "#151515";
-  const surfaceLight = "#1E1E1E";
-  const border = "#2A2A2A";
-  const text = "#E8E6E1";
-  const textDim = "#888";
-  const lime = "#C8FF00";
+  const bg = "#F5F4F0";
+  const surface = "#FFFFFF";
+  const surfaceHover = "#EDEDEA";
+  const border = "#1A1A1A";
+  const borderLight = "#DDDBD6";
+  const text = "#0F0F0F";
+  const textDim = "#716F6C";
 
   const s = {
     root: { fontFamily:"'IBM Plex Sans',system-ui,sans-serif", background:bg, color:text, minHeight:"100vh", fontSize:14, lineHeight:1.5 },
     mono: { fontFamily:"'IBM Plex Mono',monospace" },
-    nav: { display:"flex", alignItems:"center", justifyContent:"space-between", padding:"16px 24px", borderBottom:`1px solid ${border}`, background:surface },
-    logo: { fontFamily:"'IBM Plex Mono',monospace", fontSize:18, fontWeight:700, letterSpacing:"0.2em", color:lime },
+    nav: { display:"flex", alignItems:"center", justifyContent:"space-between", padding:"16px 24px", borderBottom:`2px solid ${border}`, background:surface },
+    logo: { fontFamily:"'IBM Plex Mono',monospace", fontSize:18, fontWeight:700, letterSpacing:"0.2em", color:border },
     navLinks: { display:"flex", gap:4 },
-    navBtn: (active) => ({ padding:"8px 16px", borderRadius:6, border:"none", background:active?lime:"transparent", color:active?bg:textDim, fontSize:13, fontWeight:600, cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.03em", transition:"all 0.15s" }),
-    sidebar: { width:220, borderRight:`1px solid ${border}`, padding:"16px 0", overflowY:"auto", flexShrink:0 },
-    catBtn: (active) => ({ width:"100%", padding:"10px 20px", border:"none", background:active?surfaceLight:"transparent", color:active?text:textDim, fontSize:13, cursor:"pointer", textAlign:"left", display:"flex", justifyContent:"space-between", alignItems:"center", fontFamily:"'IBM Plex Sans',sans-serif", transition:"all 0.1s" }),
+    navBtn: (active) => ({ padding:"8px 16px", borderRadius:4, border:"none", background:active?border:"transparent", color:active?surface:textDim, fontSize:13, fontWeight:600, cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.05em", textTransform:"uppercase", transition:"all 0.15s" }),
+    sidebar: { width:220, borderRight:`1px solid ${border}`, padding:"16px 0", overflowY:"auto", flexShrink:0, background:surface },
+    catBtn: (active, catColor) => ({ width:"100%", padding:"10px 20px", border:"none", borderLeft: active ? `3px solid ${catColor}` : "3px solid transparent", background:"transparent", color:active?text:textDim, fontSize:13, cursor:"pointer", textAlign:"left", display:"flex", justifyContent:"space-between", alignItems:"center", fontFamily:"'IBM Plex Sans',sans-serif", transition:"all 0.1s" }),
     grid: { display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))", gap:14, padding:20, alignItems:"start" },
-    card: (sel) => ({ background:sel?surfaceLight:surface, border:`1px solid ${sel?lime:border}`, borderRadius:10, padding:16, cursor:"pointer", transition:"all 0.15s", position:"relative" }),
-    tag: (color) => ({ display:"inline-block", padding:"2px 8px", borderRadius:4, fontSize:11, fontWeight:600, background:color+"22", color, fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.05em" }),
-    badge: { position:"absolute", top:10, right:10, width:10, height:10, borderRadius:"50%", background:lime },
-    panel: { background:surface, border:`1px solid ${border}`, borderRadius:10, padding:20, marginBottom:16 },
-    btnPrimary: { padding:"10px 20px", borderRadius:8, border:"none", background:lime, color:bg, fontSize:13, fontWeight:700, cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace" },
-    btnSecondary: { padding:"10px 20px", borderRadius:8, border:`1px solid ${border}`, background:"transparent", color:text, fontSize:13, fontWeight:600, cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace" },
-    selTray: { position:"fixed", bottom:0, left:0, right:0, background:surface, borderTop:`1px solid ${border}`, padding:"12px 24px", display:"flex", alignItems:"center", justifyContent:"space-between", zIndex:100 },
+    card: (sel) => ({ background:sel?surfaceHover:surface, border:`${sel?"2.5px":"1.5px"} solid ${border}`, borderRadius:6, overflow:"hidden", cursor:"pointer", transition:"all 0.15s", position:"relative" }),
+    tag: (color) => ({ display:"inline-block", padding:"2px 8px", borderRadius:3, fontSize:11, fontWeight:600, background:color+"33", color:"#1A1A1A", fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.05em" }),
+    badge: { position:"absolute", top:10, right:10, width:10, height:10, borderRadius:"50%", background:border },
+    panel: { background:surface, border:`1px solid ${border}`, borderRadius:6, padding:20, marginBottom:16 },
+    btnPrimary: { padding:"10px 24px", borderRadius:0, border:"none", background:border, color:surface, fontSize:13, fontWeight:700, cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.05em", textTransform:"uppercase" },
+    btnSecondary: { padding:"10px 24px", borderRadius:0, border:`1.5px solid ${border}`, background:"transparent", color:text, fontSize:13, fontWeight:600, cursor:"pointer", fontFamily:"'IBM Plex Mono',monospace", letterSpacing:"0.05em", textTransform:"uppercase" },
+    selTray: { position:"fixed", bottom:0, left:0, right:0, background:border, borderTop:`2px solid ${border}`, padding:"12px 24px", display:"flex", alignItems:"center", justifyContent:"space-between", zIndex:100 },
   };
 
   // ── RENDER ─────────────────────────────────────────────────
