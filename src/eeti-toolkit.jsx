@@ -686,15 +686,11 @@ export default function EETIToolkit() {
               {filteredCards.map((card,i) => {
                 const sel = selected.has(card.id);
                 const flipped = flippedCards.has(card.id);
-                const catColor = CATEGORIES[card.cat]?.color || "#888";
+                const catColor = CATEGORIES[card.cat]?.color || "#DDD";
                 const graphic = CARD_GRAPHICS[card.id] || CARD_GRAPHICS[card.cat] || "   ·\n  ···\n   ·";
-                const ink = "#0D0D0D";
-                const inkMid = "rgba(0,0,0,0.55)";
-                const inkFaint = "rgba(0,0,0,0.28)";
-                const inkBg = "rgba(0,0,0,0.07)";
 
                 return (
-                  <div key={card.id} style={{ height:340, perspective:"1000px", animation:`fadeIn 0.2s ease ${i*30}ms both` }}>
+                  <div key={card.id} style={{ height:320, perspective:"1000px", animation:`fadeIn 0.2s ease ${i*30}ms both` }}>
                     <div style={{
                       position:"relative", height:"100%",
                       transformStyle:"preserve-3d",
@@ -708,49 +704,55 @@ export default function EETIToolkit() {
                         style={{
                           position:"absolute", top:0, left:0, right:0, bottom:0,
                           backfaceVisibility:"hidden", WebkitBackfaceVisibility:"hidden",
-                          background:catColor, borderRadius:12,
-                          padding:"14px 15px", overflow:"hidden",
-                          cursor:"pointer", display:"flex", flexDirection:"column",
-                          boxShadow: sel ? `0 0 0 2.5px ${ink}` : "0 1px 4px rgba(0,0,0,0.15)",
-                          transition:"box-shadow 0.15s"
+                          background:"#FFFFFF", borderRadius:6,
+                          border:`${sel?"2.5px":"1.5px"} solid #1A1A1A`,
+                          overflow:"hidden", cursor:"pointer", display:"flex", flexDirection:"column",
+                          transition:"border-width 0.1s, background 0.1s",
+                          ...(sel ? { background:"#EDEDEA" } : {})
                         }}
                       >
-                        {/* Sub-label + select button */}
-                        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
-                          <span style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:inkFaint, textTransform:"uppercase" }}>{card.sub}</span>
-                          <button
-                            onClick={e => { e.stopPropagation(); toggle(card.id); }}
-                            style={{
-                              width:22, height:22, borderRadius:"50%", flexShrink:0,
-                              border:`2px solid ${sel ? ink : "rgba(0,0,0,0.22)"}`,
-                              background: sel ? ink : "transparent",
-                              color: sel ? catColor : "rgba(0,0,0,0.4)",
-                              cursor:"pointer", fontSize:12, fontWeight:700,
-                              display:"flex", alignItems:"center", justifyContent:"center",
-                              lineHeight:1, padding:0, transition:"all 0.15s"
-                            }}
-                          >{sel ? "✓" : "+"}</button>
-                        </div>
+                        {/* Category color top strip */}
+                        <div style={{ height:6, background:catColor, flexShrink:0 }} />
 
-                        {/* ASCII graphic */}
-                        <pre style={{
-                          fontFamily:"'IBM Plex Mono',monospace", fontSize:11, lineHeight:1.38,
-                          margin:"0 0 11px", padding:"10px 12px",
-                          background:inkBg, borderRadius:7,
-                          color:inkMid, overflow:"hidden", whiteSpace:"pre",
-                          flexShrink:0
-                        }}>{graphic}</pre>
+                        {/* Content area */}
+                        <div style={{ padding:"12px 14px", display:"flex", flexDirection:"column", flex:1, overflow:"hidden" }}>
+                          {/* Sub-label + select button */}
+                          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
+                            <span style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:"#9E9C99", textTransform:"uppercase" }}>{card.sub}</span>
+                            <button
+                              onClick={e => { e.stopPropagation(); toggle(card.id); }}
+                              style={{
+                                width:22, height:22, borderRadius:"50%", flexShrink:0,
+                                border:`2px solid ${sel ? "#1A1A1A" : "#BBBBBB"}`,
+                                background: sel ? "#1A1A1A" : "transparent",
+                                color: sel ? "#FFFFFF" : "#9E9C99",
+                                cursor:"pointer", fontSize:11, fontWeight:700,
+                                display:"flex", alignItems:"center", justifyContent:"center",
+                                lineHeight:1, padding:0, transition:"all 0.15s"
+                              }}
+                            >{sel ? "✓" : "+"}</button>
+                          </div>
 
-                        {/* Name */}
-                        <div style={{ fontSize:17, fontWeight:700, color:ink, letterSpacing:"-0.01em", marginBottom:5, lineHeight:1.2 }}>{card.name}</div>
+                          {/* ASCII graphic — fixed height */}
+                          <pre style={{
+                            fontFamily:"'IBM Plex Mono',monospace", fontSize:11, lineHeight:1.38,
+                            margin:"0 0 11px", padding:"8px 10px",
+                            background:"rgba(0,0,0,0.04)", borderRadius:4,
+                            color:"rgba(0,0,0,0.5)", overflow:"hidden", whiteSpace:"pre",
+                            flexShrink:0, height:80
+                          }}>{graphic}</pre>
 
-                        {/* Description */}
-                        <div style={{ fontSize:12, lineHeight:1.55, color:"rgba(0,0,0,0.6)", flex:1, overflow:"hidden" }}>{card.desc}</div>
+                          {/* Name */}
+                          <div style={{ fontSize:15, fontWeight:700, color:"#0F0F0F", letterSpacing:"-0.01em", marginBottom:5, lineHeight:1.2 }}>{card.name}</div>
 
-                        {/* Flip hint */}
-                        <div style={{ marginTop:8, display:"flex", alignItems:"center", justifyContent:"flex-end", gap:4 }}>
-                          <span style={{ ...s.mono, fontSize:9, color:inkFaint, letterSpacing:"0.06em" }}>flip for pros / cons</span>
-                          <span style={{ ...s.mono, fontSize:10, color:inkFaint }}>↺</span>
+                          {/* Description */}
+                          <div style={{ fontSize:12, lineHeight:1.55, color:"#716F6C", flex:1, overflow:"hidden" }}>{card.desc}</div>
+
+                          {/* Flip hint */}
+                          <div style={{ marginTop:8, display:"flex", alignItems:"center", justifyContent:"flex-end", gap:4 }}>
+                            <span style={{ ...s.mono, fontSize:9, color:"#BBBBBB", letterSpacing:"0.06em" }}>flip for pros / cons</span>
+                            <span style={{ ...s.mono, fontSize:10, color:"#BBBBBB" }}>↺</span>
+                          </div>
                         </div>
                       </div>
 
@@ -761,50 +763,56 @@ export default function EETIToolkit() {
                           position:"absolute", top:0, left:0, right:0, bottom:0,
                           backfaceVisibility:"hidden", WebkitBackfaceVisibility:"hidden",
                           transform:"rotateY(180deg)",
-                          background:catColor, borderRadius:12,
-                          padding:"14px 15px", overflow:"hidden",
-                          cursor:"pointer", display:"flex", flexDirection:"column"
+                          background:"#FFFFFF", borderRadius:6,
+                          border:"1.5px solid #1A1A1A",
+                          overflow:"hidden", cursor:"pointer", display:"flex", flexDirection:"column"
                         }}
                       >
-                        {/* Back header */}
-                        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
-                          <div style={{ fontSize:15, fontWeight:700, color:ink, lineHeight:1.2 }}>{card.name}</div>
-                          <span style={{ ...s.mono, fontSize:9, color:inkFaint, letterSpacing:"0.06em" }}>↺ flip</span>
+                        {/* Category color top strip */}
+                        <div style={{ height:6, background:catColor, flexShrink:0 }} />
+
+                        {/* Content area */}
+                        <div style={{ padding:"12px 14px", display:"flex", flexDirection:"column", flex:1, overflow:"hidden" }}>
+                          {/* Back header */}
+                          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
+                            <div style={{ fontSize:14, fontWeight:700, color:"#0F0F0F", lineHeight:1.2 }}>{card.name}</div>
+                            <span style={{ ...s.mono, fontSize:9, color:"#BBBBBB", letterSpacing:"0.06em" }}>↺ flip</span>
+                          </div>
+
+                          <div style={{ height:1, background:"#DDDBD6", marginBottom:10 }} />
+
+                          {/* Pros */}
+                          <div style={{ marginBottom:10 }}>
+                            <div style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:"#9E9C99", marginBottom:6 }}>PROS</div>
+                            {card.pros.map((p,j) => (
+                              <div key={j} style={{ fontSize:11, marginBottom:4, display:"flex", gap:7, alignItems:"flex-start", lineHeight:1.45 }}>
+                                <span style={{ ...s.mono, color:"#5EDBA8", flexShrink:0, fontWeight:700 }}>[+]</span>
+                                <span style={{ color:"#0F0F0F" }}>{p}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div style={{ height:1, background:"#DDDBD6", marginBottom:10 }} />
+
+                          {/* Cons */}
+                          <div style={{ flex:1, overflow:"auto" }}>
+                            <div style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:"#9E9C99", marginBottom:6 }}>CONS</div>
+                            {card.cons.map((p,j) => (
+                              <div key={j} style={{ fontSize:11, marginBottom:4, display:"flex", gap:7, alignItems:"flex-start", lineHeight:1.45 }}>
+                                <span style={{ ...s.mono, color:"#FFA98B", flexShrink:0, fontWeight:700 }}>[–]</span>
+                                <span style={{ color:"#0F0F0F" }}>{p}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Vertical category label */}
+                          <div style={{
+                            position:"absolute", right:10, top:"50%",
+                            writingMode:"vertical-rl", transform:"translateY(-50%) rotate(180deg)",
+                            ...s.mono, fontSize:8, fontWeight:700, letterSpacing:"0.22em",
+                            color:"rgba(0,0,0,0.1)", whiteSpace:"nowrap", pointerEvents:"none"
+                          }}>{card.sub.toUpperCase()}</div>
                         </div>
-
-                        <div style={{ height:1, background:"rgba(0,0,0,0.12)", marginBottom:11 }} />
-
-                        {/* Pros */}
-                        <div style={{ marginBottom:10 }}>
-                          <div style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:inkFaint, marginBottom:7 }}>PROS</div>
-                          {card.pros.map((p,j) => (
-                            <div key={j} style={{ fontSize:11, marginBottom:5, display:"flex", gap:7, alignItems:"flex-start", lineHeight:1.45 }}>
-                              <span style={{ ...s.mono, color:"rgba(0,0,0,0.35)", flexShrink:0, fontWeight:600 }}>[+]</span>
-                              <span style={{ color:"rgba(0,0,0,0.72)" }}>{p}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div style={{ height:1, background:"rgba(0,0,0,0.12)", marginBottom:11 }} />
-
-                        {/* Cons */}
-                        <div style={{ flex:1, overflow:"auto" }}>
-                          <div style={{ ...s.mono, fontSize:9, fontWeight:700, letterSpacing:"0.14em", color:inkFaint, marginBottom:7 }}>CONS</div>
-                          {card.cons.map((p,j) => (
-                            <div key={j} style={{ fontSize:11, marginBottom:5, display:"flex", gap:7, alignItems:"flex-start", lineHeight:1.45 }}>
-                              <span style={{ ...s.mono, color:"rgba(0,0,0,0.35)", flexShrink:0, fontWeight:600 }}>[–]</span>
-                              <span style={{ color:"rgba(0,0,0,0.72)" }}>{p}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Vertical category label */}
-                        <div style={{
-                          position:"absolute", right:10, top:"50%",
-                          writingMode:"vertical-rl", transform:"translateY(-50%) rotate(180deg)",
-                          ...s.mono, fontSize:8, fontWeight:700, letterSpacing:"0.22em",
-                          color:"rgba(0,0,0,0.14)", whiteSpace:"nowrap", pointerEvents:"none"
-                        }}>{card.sub.toUpperCase()}</div>
                       </div>
 
                     </div>
