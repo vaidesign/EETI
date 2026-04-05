@@ -229,6 +229,13 @@ const CARDS = [
   { id:"scalesession",cat:"scale",name:"Session",sub:"Scale",img:"scale_session.png",desc:"A sustained period of active use — 5–30 minutes of continuous engagement with a purpose.",pros:["Allows complex, deeply engaging UX","User is invested — higher tolerance for learning","Rich analytics from session data"],cons:["Requires sustained battery and CPU","User comfort becomes a factor (wrist fatigue, eye strain)","Retention falls off sharply after 20 minutes without hooks"],considerations:["Ergonomics matter for session-length products — weight, heat, grip shape","Battery life must exceed typical session time with margin","Session end state should be graceful — save progress, provide summary"] },
   { id:"scaleambient",cat:"scale",name:"Ambient / Continuous",sub:"Scale",img:"scale_ambient.png",desc:"Always present, passively consumed — background displays, always-on sensors, ambient indicators.",pros:["No interaction required — information just exists","Can communicate peripheral context without demanding attention","Power of habit — users reference without consciously choosing to"],cons:["Must never demand attention unless critical","Content must stay fresh or users stop seeing it","Always-on power consumption"],considerations:["E-ink or always-on OLED ideal for ambient displays","Content update frequency should match information freshness — hourly weather, not second-by-second","Design for peripheral vision — large, high-contrast, glanceable at any angle"] },
   { id:"scaleperiodic",cat:"scale",name:"Periodic",sub:"Scale",img:"scale_periodic.png",desc:"Regular check-ins at intervals — daily review, weekly summary, hourly reminder.",pros:["Predictable and plannable for users","Batch information reduces interruption frequency","Can align with natural rhythms (morning, mealtime, bedtime)"],cons:["User must remember or be reminded","Stale between intervals","Wrong interval feels like too much or too little"],considerations:["Let users choose interval — what's perfect for one user is wrong for another","Daily digest is often better than hourly notifications","Periodic interactions work well for health, habit tracking, and maintenance workflows"] },
+
+  // DESIGN / LEARNING CURVE
+  { id:"learnintuitive",cat:"learning",name:"Intuitive",sub:"Learning",img:"learn_intuitive.png",desc:"Works correctly on first attempt with no instruction — pure affordance and prior knowledge.",pros:["Zero onboarding friction","Works for all users regardless of tech literacy","No manual or tutorial needed"],cons:["Hard to achieve for novel interactions","May limit expressiveness of interaction","Cultural assumptions embedded in 'intuitive'"],considerations:["Test with users who have no tech background to verify 'intuitive' claim","Leverage skeuomorphic cues from physical world (turn knob clockwise = increase)","If it needs a label, it is not yet intuitive — redesign the affordance"] },
+  { id:"learndiscoverable",cat:"learning",name:"Discoverable",sub:"Learning",img:"learn_discoverable.png",desc:"Hidden features reveal themselves through natural exploration — progressive disclosure.",pros:["Beginner path is clean and simple","Advanced users can discover depth","No explicit teaching required"],cons:["Power features may never be found","Discovery is unpredictable across users","Hard to test effectively"],considerations:["Contextual hints on second or third use lower barriers without polluting first use","Apple's 3D Touch / press-and-hold are classic discoverable patterns","Ensure the simple path is fully functional — discovery is additive, not required"] },
+  { id:"learntutorial",cat:"learning",name:"Tutorial",sub:"Learning",img:"learn_tutorial.png",desc:"Requires explicit instruction to use — onboarding flow, manual, or guided first use.",pros:["Can teach complex or novel interactions","Ensures correct mental model from start","Can be skipped by experienced users"],cons:["High friction — many users skip tutorials","Must be available in context when needed, not just at first launch","Rapidly becomes outdated with product updates"],considerations:["Interactive tutorial > video > static manual in retention","Keep to 3–5 steps maximum — longer tutorials have near-zero completion","Contextual help ('?' button) as persistent fallback after tutorial is dismissed"] },
+  { id:"learnskill",cat:"learning",name:"Skill-Building",sub:"Learning",img:"learn_skill.png",desc:"Interaction that rewards practice — gets faster, easier, or more powerful with repeated use.",pros:["Creates habitual and loyal users","Expert UX can be highly efficient","Mastery is motivating — user feels capable"],cons:["High initial barrier","Casual users may never reach proficiency","Requires consistent design — changing UI resets muscle memory"],considerations:["Keyboard shortcuts on top of mouse UI is classic skill-building layer","Haptic patterns for gesture commands can become second nature in weeks","Progressive challenges or 'streaks' can accelerate skill building in consumer products"] },
+  { id:"learnexpert",cat:"learning",name:"Expert",sub:"Learning",img:"learn_expert.png",desc:"Optimised for proficient users — dense UI, keyboard shortcuts, minimal hand-holding.",pros:["Maximum efficiency for trained users","Trusted by professionals — feels powerful","Users feel respected and capable"],cons:["Inaccessible to new users without training","Error recovery is harder when feedback is minimal","Intimidating to non-expert stakeholders evaluating the product"],considerations:["Always provide a beginner mode or guided fallback even in expert-first products","CLI interfaces are the ultimate expert UX — every keystroke intentional","Document the expert paths clearly — power users will share them and drive adoption"] },
 ];
 
 // ── ASCII CARD GRAPHICS ────────────────────────────────────────
@@ -391,6 +398,13 @@ const CARD_GRAPHICS = {
   scaleambient: "  · ◈ ·\n ·     ·\n  · · ·",
   scaleperiodic:"  │ │ │\n  ─────\n  ◷ ◷ ◷",
   scale:        "  ·─●─█\n  ─────",
+  // Learning Curve
+  learnintuitive: "  ◉→✓\n  ───",
+  learndiscoverable:" ◉\n ─┼─\n  │\n  ?",
+  learntutorial:"  ①②③\n  ───",
+  learnskill:   "  /\n /\n/─────",
+  learnexpert:  "  >_\n  ───",
+  learning:     "  ╱\n ╱\n╱────",
 };
 
 // ── CATEGORY DEFINITIONS ──────────────────────────────────────
@@ -413,6 +427,7 @@ const CATEGORIES = {
   material:      { label:"Material",   color:"#FBBF24", group:"form" },
   spatial:       { label:"Spatial",    color:"#34D399", group:"form" },
   scale:         { label:"Scale",      color:"#F97316", group:"design" },
+  learning:      { label:"Learning",   color:"#E879F9", group:"design" },
 };
 
 const GROUPS = {
